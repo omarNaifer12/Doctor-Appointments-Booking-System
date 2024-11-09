@@ -11,7 +11,7 @@ const TopDoctors = () =>  {
         <p className="text-lg text-center text-gray-600 mb-6">Simply browse through</p>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 px-4">
           {doctors.slice(0, 10).map((doctor, index) => (
-            <div onClick={()=>navigate(`/appointment/${doctor._id}`)}
+            <div onClick={()=>{navigate(`/appointment/${doctor._id}`); scrollTo(0,0)}}
               key={index} 
               className="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow duration-200 ease-in-out hover:cursor-pointer transform hover:scale-105"
             >

@@ -36,7 +36,7 @@ applyFilter();
 </li>
 
 <li 
-  onClick={() => speciality === 'Gynecologist' ? navigate('/doctors') : navigate('/doctors/Gynecologist')} 
+  onClick={()=> speciality === 'Gynecologist' ? navigate('/doctors') : navigate('/doctors/Gynecologist')} 
   className={`${speciality === 'Gynecologist' ? 'text-blue-700 font-bold' : 'text-gray-700 font-medium'} hover:text-blue-700 transition duration-200 cursor-pointer`}
 >
   Gynecologist
