@@ -1,19 +1,11 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { assets } from '../assets/assets'
-
+import { AppContext } from '../Context/AppContext';
+import axios from 'axios';
+import {  toast } from 'react-toastify';
 const MyProfile = () => {
-  const [userData,setUserData]=useState({
-    name:"omar",
-    image:assets.profile_pic,
-    email:'omar@gmail.com',
-    phone:'1455544565 55',
-    address:{
-      line1:"iushuidhud dhid hdiuid",
-      line2:'kdhiuhd iuhduy dgbyugd uygd'
-    },
-    gender:'Male',
-    dob:'2000-05-03'
-  });
+  const {userData,setUserData,token,backendUrl}=useContext(AppContext);
+  
   const [isEdit,setIsEdit]=useState(false);
   const handleInputChange = (field, value) => {
     setUserData(prev => ({
@@ -30,7 +22,31 @@ const MyProfile = () => {
       }
     }));
   };
-
+const handleSubmitUpdate=async(e)=>{
+  e.preventDefault();
+try {
+  const {data}=await axios.put(backendUrl+"/api/user/update",userData,{headers:{token}});
+if(data.success){
+toast.success(data.message);
+}
+  else{
+    toast.error(data.message);
+  }
+} catch (error) {
+  console.log(error);
+  toast.error(error.message);
+  
+}
+}
+const submit=async(e)=>{
+  if(isEdit){
+   await handleSubmitUpdate(e);
+    setIsEdit(!isEdit);
+  }
+  else{
+    setIsEdit(!isEdit);
+  }
+}
   
   return (
     <div className="p-6 max-w-md mx-auto bg-gradient-to-r from-white to-blue-100 shadow-lg rounded-lg border border-gray-200">
@@ -90,20 +106,20 @@ const MyProfile = () => {
           {isEdit ? (
             <div>
               <input 
-                value={userData.address.line1} 
-                onChange={(e) => handleAddressChange('line1', e.target.value)} 
+                value={userData?.address?.line1 || ''} 
+                onChange={(e) => handleAddressChange('line1',e.target.value)} 
                 className="w-full p-2 mb-2 border rounded-md border-gray-300"
                 placeholder="Address Line 1"
               />
               <input 
-                value={userData.address.line2} 
+               value={userData?.address?.line2 || ''} 
                 onChange={(e) => handleAddressChange('line2', e.target.value)} 
                 className="w-full p-2 border rounded-md border-gray-300"
                 placeholder="Address Line 2"
               />
             </div>
           ) : (
-            <p className="text-gray-800">{userData.address.line1}<br />{userData.address.line2}</p>
+            <p className="text-gray-800">{userData?.address?.line1}<br />{userData?.address?.line2}</p> // Safe check with fallback
           )}
         </div>
 
@@ -116,6 +132,7 @@ const MyProfile = () => {
               onChange={(e) => handleInputChange('gender', e.target.value)}
               className="w-full p-2 border rounded-md border-gray-300"
             >
+              <option value="Not Selected">Not Selected</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
             </select>
@@ -130,7 +147,7 @@ const MyProfile = () => {
           {isEdit ? (
             <input 
               type="date"
-              value={userData.dob} 
+              value={userData.dob==="Not Selected"?"":userData.dob} 
               onChange={(e) => handleInputChange('dob', e.target.value)} 
               className="w-full p-2 border rounded-md border-gray-300"
             />
@@ -142,7 +159,7 @@ const MyProfile = () => {
 
       {/* Toggle Edit Mode */}
       <button 
-        onClick={() => setIsEdit(!isEdit)} 
+        onClick={(e) => submit(e)} 
         className={`mt-6 w-full py-2 rounded-md font-semibold text-white transition ${
           isEdit ? "bg-green-500 hover:bg-green-600" : "bg-blue-500 hover:bg-blue-600"
         }`}

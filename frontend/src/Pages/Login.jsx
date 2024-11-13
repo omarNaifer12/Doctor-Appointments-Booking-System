@@ -1,13 +1,54 @@
-import React, { useState } from 'react'
-
+import React, { useContext, useEffect, useState } from 'react'
+import { AppContext } from '../Context/AppContext';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 const Login = () => {
   const [state,setState]=useState('Sign Up');
   const [email,setEmail]=useState('')
   const [password,setPassword]=useState('')
   const [name,setName]=useState('')
+  const {setToken,backendUrl,token}=useContext(AppContext);
+  const navigate=useNavigate();
   const onSubmitHandler=async(e)=>{
     e.preventDefault();
+    let  url;
+    if(state==='Sign Up'){
+      url=backendUrl+"/api/user/register";
+    }
+    else{
+      url=backendUrl+"/api/user/login";
+    }
+    try {
+      const user={
+        email,
+        password,
+        name
+      }
+      const {data}=await axios.post(url,user);
+      console.log("data user after login or sign up",data);
+      if(data.success){
+       
+        setToken(data.token);
+        localStorage.setItem("utoken",data.token);
+        setEmail("");
+        setName("");
+        setPassword("");
+
+      }
+      else{
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
   }
+  useEffect(()=>{
+    if(token){
+      navigate('/');
+    }
+
+  },[token])
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <form 

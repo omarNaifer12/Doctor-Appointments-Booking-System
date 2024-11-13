@@ -51,6 +51,8 @@ const addDoctor = async (req, res) => {
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
+        console.log("req body in login admin",req.body);
+        
         if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
             const atoken = jwt.sign(password + email, process.env.JWT_SECRET);
             res.json({ success: true, atoken });
@@ -63,4 +65,13 @@ const login = async (req, res) => {
         return res.json({ success: false, message: error.message });
     }
 }
-module.exports = { addDoctor, login };
+const AllDoctors=async(req,res)=>{
+    try {
+        const doctors=await doctorModel.find({}).select('-password');
+        res.json({ success: true, doctors });
+    } catch (error) {
+        console.log("error", error);
+        return res.json({ success: false, message: error.message });
+    }
+}
+module.exports = { addDoctor,login,AllDoctors };

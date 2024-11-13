@@ -27,9 +27,7 @@ if(today.getHours>=20){
 }
   GenerateSlotsOfWeek(today,8,21);
   }
-useEffect(()=>{
-getAvailableSlots();
-},[]);
+
 const generateDailyTimeSlots=(startTime,endTime,interval)=>{
  let Stime=startTime;
   let result=[];
@@ -72,15 +70,20 @@ setDocSlots(resultSlots);
 
 }
 useEffect(()=>{
+  getAvailableSlots();
+  },[]);
+useEffect(()=>{
+  if(docId){
 fetchDoctorInfo();
-},[docId,doctors])
+  }
+},[docId]);
   return doctorInfo && (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
       {/* Doctor Details */}
       <div className="flex flex-col md:flex-row items-start md:items-center">
         {/* Doctor Image */}
         <div className="md:w-1/3 w-full mb-6 md:mb-0">
-          {console.log("image", doctorInfo.image)}
+          
           <img
             src={doctorInfo.image}
             alt={doctorInfo.name}

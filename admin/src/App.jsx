@@ -18,19 +18,25 @@ const App = () => {
  
   
   return atoken? (
-    <div >
-      
-      <ToastContainer /> 
+    <div className="flex flex-col min-h-screen">
+      <ToastContainer />
+      {/* Navbar stays at the top */}
       <Navbar />
-      <div>
+
+      <div className="flex flex-1">
+        {/* Sidebar on the left */}
         <SideBar />
-        <Routes>
-          <Route path='/' element={<></>}/>
-          <Route path='/admin-dashboard' element={<Dashboard />}/>
-          <Route path='/all-appointments' element={< AllAppointments/>}/>
-          <Route path='/add-doctor' element={<AddDoctor />}/>
-          <Route path='/doctor-list' element={<DoctorsList />}/>
-        </Routes>
+
+        {/* Main content area */}
+        <div className="flex-1 ml-60 p-6 overflow-y-auto">
+          <Routes>
+            <Route path="/" element={<></>} />
+            <Route path="/admin-dashboard" element={<Dashboard />} />
+            <Route path="/all-appointments" element={<AllAppointments />} />
+            <Route path="/add-doctor" element={<AddDoctor />} />
+            <Route path="/doctor-list" element={<DoctorsList />} />
+          </Routes>
+        </div>
       </div>
     </div>
   ):(<>
