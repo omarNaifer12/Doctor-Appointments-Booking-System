@@ -10,7 +10,7 @@ useEffect(()=>{
 const fetchRelatedDoc=()=>{
     
     const relDoc=doctors.filter((item)=>{
-        return item.speciality===speciality&&docId!=item.docId
+        return item.speciality===speciality&&docId!=item._id
     });
     setRelatedDoc(relDoc);
 

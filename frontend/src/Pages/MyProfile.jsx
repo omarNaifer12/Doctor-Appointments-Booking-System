@@ -1,12 +1,13 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { assets } from '../assets/assets'
 import { AppContext } from '../Context/AppContext';
 import axios from 'axios';
 import {  toast } from 'react-toastify';
 const MyProfile = () => {
   const {userData,setUserData,token,backendUrl}=useContext(AppContext);
-  
+  const [image,setImage]=useState(false);
   const [isEdit,setIsEdit]=useState(false);
+  
   const handleInputChange = (field, value) => {
     setUserData(prev => ({
       ...prev,
@@ -24,8 +25,22 @@ const MyProfile = () => {
   };
 const handleSubmitUpdate=async(e)=>{
   e.preventDefault();
+  const formData = new FormData();
+
+ 
+  formData.append("name",userData.name);
+  formData.append("speciality",  userData.speciality);
+  formData.append("address", JSON.stringify(userData.address));
+  formData.append("gender",  userData.gender);
+  formData.append("dob",userData.dob);
+  formData.append("phone",userData.phone);
+image&&formData.append("image",image);
+
+
+
+ 
 try {
-  const {data}=await axios.put(backendUrl+"/api/user/update",userData,{headers:{token}});
+  const {data}=await axios.put(backendUrl+"/api/user/update",formData,{headers:{token}});
 if(data.success){
 toast.success(data.message);
 }
@@ -48,11 +63,39 @@ const submit=async(e)=>{
   }
 }
   
-  return (
+  return userData&&(
     <div className="p-6 max-w-md mx-auto bg-gradient-to-r from-white to-blue-100 shadow-lg rounded-lg border border-gray-200">
-      <div className="text-center">
-        <img src={userData.image} alt="Profile" className="w-32 h-32 rounded-full mx-auto mb-4 shadow-md border-4 border-blue-500" />
+     {isEdit ? (
+    <label htmlFor="image" className="relative cursor-pointer group">
+      <div className="relative">
+        {/* Profile Image */}
+        <img
+          src={image ? URL.createObjectURL(image) : userData.image}
+          alt="Profile"
+          className="w-32 h-32 rounded-full mx-auto mb-4 shadow-lg border-4 border-blue-500 transition-transform transform group-hover:scale-105"
+        />
         
+        {/* Overlay Icon for Editing */}
+        <div className="absolute inset-0 bg-blue-500 bg-opacity-40 flex items-center justify-center rounded-full transition-opacity opacity-0 group-hover:opacity-100">
+          <img src={assets.upload_icon} alt="Upload" className="w-10 h-10 opacity-80" />
+        </div>
+      </div>
+      <input
+        onChange={(e) => setImage(e.target.files[0])}
+        type="file"
+        id="image"
+        hidden
+      />
+    </label>
+  ) : (
+    <img
+      src={image ? URL.createObjectURL(image) : userData.image}
+      alt="Profile"
+      className="w-32 h-32 rounded-full mx-auto mb-4 shadow-md border-4 border-blue-500"
+    />
+  )}
+      <div className="text-center">
+               
         {isEdit ? (
           <input 
             value={userData.name} 
@@ -106,20 +149,20 @@ const submit=async(e)=>{
           {isEdit ? (
             <div>
               <input 
-                value={userData?.address?.line1 || ''} 
+                value={userData.address.line1} 
                 onChange={(e) => handleAddressChange('line1',e.target.value)} 
                 className="w-full p-2 mb-2 border rounded-md border-gray-300"
                 placeholder="Address Line 1"
               />
               <input 
-               value={userData?.address?.line2 || ''} 
+               value={userData.address.line2} 
                 onChange={(e) => handleAddressChange('line2', e.target.value)} 
                 className="w-full p-2 border rounded-md border-gray-300"
                 placeholder="Address Line 2"
               />
             </div>
           ) : (
-            <p className="text-gray-800">{userData?.address?.line1}<br />{userData?.address?.line2}</p> // Safe check with fallback
+            <p className="text-gray-800">{userData?.address?.line1}<br />{userData?.address?.line2}</p>
           )}
         </div>
 
