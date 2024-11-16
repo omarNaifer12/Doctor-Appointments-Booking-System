@@ -6,4 +6,5 @@ const upload=require("../middleware/multer");
 router.post("/add-doctor",authAdmin,upload.single("image"),addminController.addDoctor);
 router.post("/login",addminController.login);
 router.get("/all-doctors",authAdmin,addminController.AllDoctors);
+router.get("/appointments",authAdmin,addminController.appointmentsAdmin);
 module.exports=router;

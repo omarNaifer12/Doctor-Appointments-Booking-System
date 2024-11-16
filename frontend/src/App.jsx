@@ -12,6 +12,8 @@ import Navbar from './Components/Navbar'
 import Footer from './Components/Footer'
 import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
+import SuccessPayment from './Pages/SuccessPayment'
+import CancelPayment from './Pages/CancelPayment'
 const App = () => {
   return (
     <div className='mx-4 sm:mx-[10%]'>
@@ -27,6 +29,8 @@ const App = () => {
     <Route path='/about' element={<About />}/>
     <Route path='/my-appointments' element={<MyAppointments />}/>
     <Route path='/appointment/:docId' element={<Appointment />}/>
+    <Route path='/paypalsuccess' element={<SuccessPayment />}/>
+    <Route path='/paypalCancel' element={<CancelPayment />}/>
   </Routes>
 
     </div>

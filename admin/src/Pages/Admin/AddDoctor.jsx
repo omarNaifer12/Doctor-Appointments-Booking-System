@@ -15,7 +15,7 @@ const AddDoctor = () => {
     const [address1, setAddress1] = useState('');
     const [address2, setAddress2] = useState('');
     const [speciality, setSpeciality] = useState("General physician");
-    const { backendUrl, atoken } = useContext(AdminContext);
+    const {backendUrl, atoken } = useContext(AdminContext);
     const onSubmitHandler = async (e) => {
         e.preventDefault();
         try {

@@ -2,30 +2,60 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { AppContext } from '../Context/AppContext'
 import axios from 'axios';
-
+import {  toast } from 'react-toastify';
 const MyAppointments = () => {
   const {doctors,backendUrl,token}=useContext(AppContext);
 const [appointments,setAppointments]=useState([]);
 const months = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const slotDataFormat=(slotDate)=>{
+  const dateArray=slotDate.split('_');
+  return dateArray[0]+' '+months[Number(dateArray[1])]+' '+dateArray[2];
+  }
 const fetchAppointment=async()=>{
   try {
     const {data}=await axios.get(backendUrl+"/api/user/all-appointment",{headers:{token}});
     if(data.success){
-      setAppointments(data.appointments);
+      setAppointments(data.appointments.reverse());
+    
     }
   } catch (error) {
     console.log(error);
   }
+}
+const cancellAppointment=async(appointmentId)=>{
+  try {
+    const {data}=await axios.post(backendUrl+'/api/user/cancel-appointment',{appointmentId},{headers:{token}});
+    if(data.success){
+      toast.success(data.message);
+      setAppointments(appointments.map((item)=>item._id===appointmentId?{...item,isConcelled:true}:item));
+    }
+    else{
+      toast.error(data.message);
+
+    }
+  } catch (error) {
+    console.log(error);
+    toast.error(error.message);
+    
+  }
+}
+const handlePaymentClick=async(appointmentId)=>{
+try {
+  const {data}=await axios.post(`${backendUrl}/api/paypal/payment`,{appointmentId},{headers:{token}});
+  console.log("data payment",data);
+  if(data.success){
+    window.location.href=data.url;
+  }
+} catch (error) {
+  console.log("error",error);
+}
 }
 useEffect(()=>{
   if(token){ 
   fetchAppointment();
   }
 },[token])
-const slotDataFormat=(slotDate)=>{
-const dateArray=slotDate.split('_');
-return dateArray[0]+' '+months[Number(dateArray[1])]+' '+dateArray[2];
-}
+
   return (
     <div className="container mx-auto px-4 py-6">
       <p className="text-2xl font-semibold text-gray-800 mb-4">My Appointments</p>
@@ -57,12 +87,14 @@ return dateArray[0]+' '+months[Number(dateArray[1])]+' '+dateArray[2];
 
             {/* Action Buttons */}
             <div className="ml-4 flex flex-col items-center justify-between">
-              <button className="bg-white text-blue-500 py-2 px-4 rounded-lg border border-blue-500 hover:bg-blue-500 hover:text-white transition-all duration-200">
+              {(!appointment.isConcelled&&!appointment.isCompleted)&&<button onClick={()=>handlePaymentClick(appointment._id)} className="bg-white text-blue-500 py-2 px-4 rounded-lg border border-blue-500 hover:bg-blue-500 hover:text-white transition-all duration-200">
                 Pay Online
-              </button>
-              <button className="bg-white text-red-500 py-2 px-4 rounded-lg border border-red-500 hover:bg-red-500 hover:text-white transition-all duration-200 mt-2">
+              </button>} 
+             {(!appointment.isConcelled&&!appointment.isCompleted)&&<button onClick={()=>cancellAppointment(appointment._id)} className="bg-white text-red-500 py-2 px-4 rounded-lg border border-red-500 hover:bg-red-500 hover:text-white transition-all duration-200 mt-2">
                 Cancel Appointment
-              </button>
+              </button>} 
+              {appointment.isConcelled&&<button className="bg-white text-red-500 py-2 px-4 rounded-lg border border-red-500 hover:bg-red-500 hover:text-white transition-all duration-200 mt-2">appointment cancelled</button>}
+              {appointment.isCompleted&&<button className="bg-white text-red-500 py-2 px-4 rounded-lg border border-red-500 hover:bg-red-500 hover:text-white transition-all duration-200 mt-2">appointment completed</button>}
             </div>
           </div>
         ))}

@@ -30,7 +30,6 @@ try{
     await newUser.save();
     const token=jwt.sign({id:newUser._id},process.env.JWT_SECRET);
     return res.json({ success: true, token });
-
 }
 catch(error){
     console.log("error", error);
@@ -74,7 +73,7 @@ const getProfile=async(req,res)=>{
 const updateProfile=async(req,res)=>{
     try {
        
-        const { name,speciality, address,gender,dob,phone } = req.body;
+        const { name,address,gender,dob,phone } = req.body;
         const userId = req.user.id;
        
         
@@ -171,6 +170,7 @@ const cancelAppointmentUser=async(req,res)=>{
         const userId=req.user.id;
         const {appointmentId}=req.body;
         const appointment=await appointmentModel.findById(appointmentId);
+        console.log("appointment is ",appointment);
         if(!appointment){
             return res.json({ success: false, message: " no Appointment found" });
         }
@@ -178,6 +178,14 @@ const cancelAppointmentUser=async(req,res)=>{
             return res.json({ success: false, message: "not authorizate" });
         }
         await appointmentModel.findByIdAndUpdate(appointmentId,{ isConcelled: true });
+        const {slotDate,slotTime,docId}=appointment;
+        const doctor=await doctorModel.findById(docId);
+        let slots_booked=doctor.slots_booked;
+        
+        slots_booked[slotDate]=slots_booked[slotDate].filter((item)=>item!==slotTime);
+        
+        await doctorModel.findByIdAndUpdate(docId,{slots_booked:slots_booked});
+
         return res.json({ success: true, message:"appointment canceled" });
     
     } catch (error) {
