@@ -1,18 +1,18 @@
 const jwt=require("jsonwebtoken");
-const authUser=async(req,res,next)=>{
+const authDoctor=async(req,res,next)=>{
     try {
-        const {token}=req.headers;
-    
+        const {dtoken}=req.headers;
+        console.log("token user",dtoken);
         
-        if(!token){
+        if(!dtoken){
         return res.json({success:false,message:"not authorized login "});
         }
-        const token_decode=jwt.verify(token,process.env.JWT_SECRET);
+        const token_decode=jwt.verify(dtoken,process.env.JWT_SECRET);
         console.log("token decode is",token_decode);
         
         
-        req.user = { id: token_decode.id };
-        
+        req.doctor = { id: token_decode.id };
+        console.log("req user",req.doctor,"idddd",token_decode.id);
         
         next();
 
@@ -21,4 +21,4 @@ const authUser=async(req,res,next)=>{
         return res.json({success:false,message:error.message});
     }
 }
-module.exports=authUser;
+module.exports=authDoctor;

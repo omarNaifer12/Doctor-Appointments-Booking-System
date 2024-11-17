@@ -7,4 +7,7 @@ router.post("/add-doctor",authAdmin,upload.single("image"),addminController.addD
 router.post("/login",addminController.login);
 router.get("/all-doctors",authAdmin,addminController.AllDoctors);
 router.get("/appointments",authAdmin,addminController.appointmentsAdmin);
+router.post("/cancel-appointments",authAdmin,addminController.cancelAppointmentAdmin);
+
+router.get("/dashboard-data",authAdmin,addminController.adminDashboard);
 module.exports=router;

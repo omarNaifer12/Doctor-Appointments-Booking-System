@@ -1,7 +1,13 @@
 const express=require('express');
 const router=express.Router();
 const authAdmin=require("../middleware/authAdmin");
+const authDoctor=require("../middleware/authDoctor");
 const doctorController=require('../controller/doctorController');
 router.put('/change-availability',authAdmin,doctorController.changeAvailability);
 router.get('/list',doctorController.getDoctorsData);
+router.post('/login',doctorController.loginDoctor);
+router.get('/appointments',authDoctor,doctorController.allAppointmentsOfDoctor);
+router.post('/completed-appointment',authDoctor,doctorController.CompletedAppointment);
+router.post('/cancel-appointment',authDoctor,doctorController.cancelAppointmentDoctor);
+router.get('/dashData',authDoctor,doctorController.doctorDashboard);
 module.exports=router;

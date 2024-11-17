@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { AdminContext } from '../Context/AdminContext'
 import { assets } from '../assets/assets'
 import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 const Navbar = () => {
     const {atoken,setAtoken}=useContext(AdminContext);
     const navigate=useNavigate();
@@ -10,6 +11,7 @@ const Navbar = () => {
         atoken&&setAtoken("");
         atoken&&localStorage.removeItem("atoken");
     }
+  
   return (
     <div className="w-full bg-white text-gray-800 px-6 py-4 flex justify-between items-center shadow-md">
             <div className="flex items-center space-x-4">
