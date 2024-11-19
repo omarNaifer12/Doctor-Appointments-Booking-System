@@ -3,6 +3,7 @@ const validator = require("validator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const appointmentModel=require('../models/AppointmentModel');
+const cloudinary = require('cloudinary').v2;
 const changeAvailability=async(req,res)=>{
     try {
         const {docId}=req.body;
@@ -142,6 +143,65 @@ const loginDoctor=async(req,res)=>{
                         return res.json({ success: false, message: error.message });
                     }
                 }
+                const getDoctorProfile=async(req,res)=>{
+                    try {
+                        const doctorId=req.doctor.id;
+                        
+                        
+                        const doctor=await doctorModel.findById(doctorId).select('-password');
+                        if(!doctor){
+                            return res.json({ success: false, message: "user  does not exist" });
+                        }
+                        return res.json({ success: true,doctor});
+                    } catch (error) {
+                        console.log("error", error);
+                    return res.json({ success: false, message: error.message });
+                    }
+                }
+                const updateDoctorProfile=async(req,res)=>{
+                    try {
+                       
+                        const { name,address,degree,fees,available,about,experience,speciality,email } = req.body;
+                     
+                        const doctorId = req.doctor.id;
+                       
+                        
+                        const imageFile = req.file;
+                        const doctor=await doctorModel.findById(doctorId);
+                        console.log(req.file,req.body);
+                        
+                        if(!doctor){
+                            return res.json({ success: false, message: "doctor  does not exist" });
+                        }
+                        let image_url;
+                        if(imageFile){
+                        const imageUpload = await cloudinary.uploader.upload(imageFile.path, { resource_type: 'image' });
+                         image_url = imageUpload.secure_url;
+                        }
+                        const newAddress=address?JSON.parse(address):doctor.address;
+                        console.log("address in back",newAddress)
+                        const updateData={
+                            name:name||doctor.name,
+                            speciality:speciality||doctor.speciality, 
+                            address:newAddress,
+                            image:image_url||doctor.image,
+                        degree:degree||doctor.degree,
+                        fees:fees||doctorModel.fees,
+                        available:available||doctor.available,
+                        about:about||doctor.about,
+                        experience:experience||doctor.experience,
+                        email:email||doctor.email
+                        };
+                        const updatedDoctor=await doctorModel.findByIdAndUpdate(doctorId, updateData, { new: true });
+                        if (!updatedDoctor) {
+                          return res.status(404).json({ success: false, message: "User not found" });
+                        }
+                        res.json({ success: true, doctor: updateData ,message:"profile updated "});
+                    } catch (error) {
+                        console.log("error", error);
+                        return res.json({ success: false, message: error.message });
+                    }
+                }
 module.exports={changeAvailability,getDoctorsData,loginDoctor,allAppointmentsOfDoctor,cancelAppointmentDoctor,
-    CompletedAppointment,doctorDashboard
+    CompletedAppointment,doctorDashboard,getDoctorProfile,updateDoctorProfile
 };
