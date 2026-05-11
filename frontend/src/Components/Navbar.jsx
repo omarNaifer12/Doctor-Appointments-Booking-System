@@ -21,14 +21,14 @@ const Navbar = () => {
             <li className='py-1'>All Doctors</li>
             <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto'/>
         </NavLink>
-         <NavLink to='/about'>
+         {/* <NavLink to='/about'>
             <li className='py-1'>About</li>
             <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto'/>
         </NavLink>
          <NavLink to='/contact'>
             <li className='py-1'>Contact</li>
             <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto'/>
-        </NavLink>
+        </NavLink> */}
         </ul>
         <div className='flex items-center gap-4'>
             {

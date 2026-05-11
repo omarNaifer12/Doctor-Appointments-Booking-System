@@ -17,7 +17,7 @@ const addDoctor = async (req, res) => {
         if (!validator.isEmail(email)) {
             return res.json({ success: false, message: "please enter a valid email" });
         }
-        if (password.length < 8) {
+           if (password.length < 8) {
             return res.json({ success: false, message: "please enter a strong password" });
         }
         const salt = await bcrypt.genSalt(10);

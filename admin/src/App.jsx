@@ -19,6 +19,7 @@ const App = () => {
   const {dtoken}=useContext(DoctorContext);
   useEffect(()=>{
     console.log("token",dtoken);
+    
   },[]);
  
   

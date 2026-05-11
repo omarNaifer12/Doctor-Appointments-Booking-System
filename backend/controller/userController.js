@@ -75,6 +75,7 @@ const updateProfile=async(req,res)=>{
        
         const { name,address,gender,dob,phone } = req.body;
         const userId = req.user.id;
+       console.log("dob in updateProfile",dob);
        
         
         const imageFile = req.file;

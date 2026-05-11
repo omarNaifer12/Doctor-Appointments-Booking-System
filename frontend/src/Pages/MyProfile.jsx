@@ -38,9 +38,13 @@ image&&formData.append("image",image);
 
 
 
+
+ console.log("formDataformData in update profile",formData);
  
 try {
   const {data}=await axios.put(backendUrl+"/api/user/update",formData,{headers:{token}});
+  console.log("data after updated profile",data);
+  
 if(data.success){
 toast.success(data.message);
 }

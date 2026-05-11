@@ -14,6 +14,7 @@ const AllAppointments = () => {
       getAllAppointments();
     }
   }, [])
+console.log("appointmentsappointments",appointments);
 
   return (
     <div className="p-4">
