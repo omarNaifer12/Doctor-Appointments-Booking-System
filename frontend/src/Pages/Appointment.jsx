@@ -126,23 +126,23 @@ fetchDoctorInfo();
   }
 },[docId]);
   return doctorInfo && (
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
+    <div className="max-w-4xl mx-auto p-6">
       {/* Doctor Details */}
-      <div className="flex flex-col md:flex-row items-start md:items-center">
+      <div className="flex flex-col md:flex-row items-start gap-6 bg-gradient-to-br from-indigo-50 to-white rounded-2xl p-6 border border-indigo-100">
         {/* Doctor Image */}
-        <div className="md:w-1/3 w-full mb-6 md:mb-0">
+        <div className="md:w-1/3 w-full">
           
           <img
             src={doctorInfo.image}
             alt={doctorInfo.name}
-            className="w-full h-60 object-cover rounded-lg shadow-md"
+            className="w-full h-60 object-cover rounded-xl shadow-sm"
           />
         </div>
 
         {/* Doctor Info */}
-        <div className="md:ml-6 md:w-2/3 w-full space-y-4">
+        <div className="md:w-2/3 w-full space-y-4">
           <div>
-            <p className="text-2xl font-semibold text-gray-800 flex items-center">
+            <p className="text-2xl font-bold text-slate-800 flex items-center">
               {doctorInfo.name}
               <img
                 src={assets.verified_icon}
@@ -150,18 +150,18 @@ fetchDoctorInfo();
                 className="ml-2 w-5 h-5 inline-block"
               />
             </p>
-            <div className="flex items-center space-x-2 text-gray-600">
-              <p className="font-medium">{doctorInfo.degree}</p>
-              <span className="text-gray-400">|</span>
-              <p>{doctorInfo.speciality}</p>
-              <button className="ml-4 px-3 py-1 bg-green-100 text-green-700 text-sm font-semibold rounded-md shadow-sm">
+            <div className="flex items-center gap-2 text-slate-600 mt-1 flex-wrap">
+              <span className="font-medium">{doctorInfo.degree}</span>
+              <span className="text-slate-300">/</span>
+              <span>{doctorInfo.speciality}</span>
+              <span className="ml-2 px-3 py-1 bg-indigo-600 text-white text-xs font-semibold rounded-full">
                 {doctorInfo.experience} experience
-              </button>
+              </span>
             </div>
           </div>
 
           <div>
-            <p className="font-semibold text-gray-800 flex items-center">
+            <p className="font-semibold text-slate-800 flex items-center text-sm uppercase tracking-wide">
               About
               <img
                 src={assets.info_icon}
@@ -169,39 +169,39 @@ fetchDoctorInfo();
                 className="ml-2 w-4 h-4"
               />
             </p>
-            <p className="text-gray-600 mt-2 leading-relaxed">{doctorInfo.about}</p>
+            <p className="text-slate-600 mt-2 leading-relaxed">{doctorInfo.about}</p>
           </div>
 
-          <p className="text-lg font-semibold text-gray-800">
+          <p className="text-lg font-semibold text-slate-800">
             Appointment Fees:{" "}
-            <span className="text-green-500">{currencySymbol}{doctorInfo.fees}</span>
+            <span className="text-indigo-600">{currencySymbol}{doctorInfo.fees}</span>
           </p>
         </div>
       </div>
 
       {/* Booking Slots */}
-      <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
-      <p className="text-xl font-semibold text-gray-800 mt-6 mb-4">Available Booking Slots</p>
+      <div className="mt-6 p-6 bg-white rounded-2xl border border-slate-200">
+      <p className="text-xl font-bold text-slate-800 mb-4">Available Booking Slots</p>
       
       {/* Slot Container */}
-      <div className="flex flex-wrap justify-center gap-4">
+      <div className="flex flex-wrap gap-3">
         {docSlots && docSlots.map((item, index) => (
           <div 
             key={index} 
             onClick={() => setSlotIndex(index)} 
-            className={`w-16 h-16 flex items-center justify-center rounded-full cursor-pointer transition duration-300 
-              ${slotIndex === index ? 'bg-blue-600 text-white' : 'bg-white text-gray-800 border-2 border-gray-300'}
-              hover:bg-blue-500 hover:text-white`}>
+            className={`w-16 h-16 flex items-center justify-center rounded-2xl cursor-pointer transition duration-300 
+              ${slotIndex === index ? 'bg-indigo-600 text-white shadow-md scale-105' : 'bg-slate-50 text-slate-700 border border-slate-200'}
+              hover:border-indigo-400`}>
             
             {/* Display Day and Date */}
             <div className="text-center">
-              <p className="text-sm font-semibold">{item[0] && daysOfWeek[item[0].dateTime.getDay()]}</p>
+              <p className="text-xs font-semibold uppercase tracking-wide">{item[0] && daysOfWeek[item[0].dateTime.getDay()]}</p>
               <p className="text-lg font-bold">{item[0] && item[0].dateTime.getDate()}</p>
             </div>
           </div>
         ))}
       </div>
-      <div className="flex justify-center gap-4 items-center">
+      <div className="flex flex-wrap gap-2 items-center mt-5">
   {docSlots.length &&docSlots[slotIndex].map((item, index) => {
       
 
@@ -210,8 +210,8 @@ fetchDoctorInfo();
       key={index}
       onClick={() => setSlotTime(item.time)} 
       className={`
-        w-12 h-12 flex items-center justify-center rounded-full text-center cursor-pointer transition duration-300
-        ${slotTime === item.time ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800'}
+        px-4 py-2 rounded-full text-center cursor-pointer transition duration-300
+        ${slotTime === item.time ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}
         text-xs font-semibold
        `}
     >
@@ -227,7 +227,7 @@ fetchDoctorInfo();
 
       {/* Button to Book Appointment */}
       <div className="mt-6 flex justify-center">
-        <button onClick={()=>bookedAppointment()} className="px-6 py-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition duration-300">
+        <button onClick={()=>bookedAppointment()} className="px-8 py-3 bg-indigo-600 text-white font-semibold rounded-full shadow-md hover:bg-indigo-700 hover:shadow-lg transition duration-300">
           Book an Appointment
         </button>
       </div>

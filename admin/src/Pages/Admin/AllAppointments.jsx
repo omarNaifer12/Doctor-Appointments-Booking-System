@@ -55,7 +55,9 @@ console.log("appointmentsappointments",appointments);
                 />
               </div>
               <p>{item.amount}$</p>
-              {item.isConcelled ? (
+              {item.isCompleted ?(
+                <p className="text-emerald-600 font-medium text-sm text-center">Completed</p>
+              ):item.isConcelled ? (
                 <p className="text-red-500 font-medium">Canceled</p>
               ) : (
                 <img

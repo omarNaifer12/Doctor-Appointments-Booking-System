@@ -14,7 +14,9 @@ import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
 import SuccessPayment from './Pages/SuccessPayment'
 import CancelPayment from './Pages/CancelPayment'
+import Room from './Pages/Room'
 const App = () => {
+  
   return (
     <div className='mx-4 sm:mx-[10%]'>
       <ToastContainer />
@@ -31,6 +33,7 @@ const App = () => {
     <Route path='/appointment/:docId' element={<Appointment />}/>
     <Route path='/paypalsuccess' element={<SuccessPayment />}/>
     <Route path='/paypalCancel' element={<CancelPayment />}/>
+    <Route path='/room' element={<Room />}/>
   </Routes>
 
     </div>

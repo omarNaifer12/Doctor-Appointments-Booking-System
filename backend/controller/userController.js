@@ -73,7 +73,7 @@ const getProfile=async(req,res)=>{
 const updateProfile=async(req,res)=>{
     try {
        
-        const { name,address,gender,dob,phone } = req.body;
+        const { name,address,gender,dob,phone,speciality } = req.body;
         const userId = req.user.id;
        console.log("dob in updateProfile",dob);
        

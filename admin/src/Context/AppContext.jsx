@@ -8,10 +8,11 @@ const slotDataFormat=(slotDate)=>{
   return dateArray[0]+' '+months[Number(dateArray[1])]+' '+dateArray[2];
   }
     const calculateAge=(dob)=>{
-        
-        
+        const regex = /^\d{4}-\d{2}-\d{2}$/;
+  if (!regex.test(dob)) return null;
         const today=new Date();
         const birthDate=new Date(dob);
+
         let years = today.getFullYear() - birthDate.getFullYear();
 
       

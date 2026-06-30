@@ -16,56 +16,56 @@ const DoctorAppointments = () => {
 
     },[dtoken])
   return (
-    <div className="p-4">
-      <p className="text-xl font-bold mb-4">All Appointments</p>
-      <div className="overflow-x-auto">
-        <div className="grid grid-cols-7 gap-4 text-center bg-gray-100 font-bold p-4 rounded-t-lg">
+    <div className="p-6">
+      <h1 className="text-2xl font-bold text-slate-800 mb-1">Appointments</h1>
+      <p className="text-sm text-slate-500 mb-5">Manage your patient bookings</p>
+      <div className="overflow-x-auto bg-white rounded-2xl border border-slate-200">
+        <div className="grid grid-cols-7 gap-4 text-left text-xs font-semibold uppercase tracking-wide text-indigo-600 bg-indigo-50 p-4 rounded-t-2xl">
           <p>#</p>
           <p>Patient</p>
           <p>Age</p>
-          <p>Date&Time</p>
+          <p>Date & Time</p>
           <p>Payment</p>
           <p>Fees</p>
-          <p>Action</p>
+          <p className="text-center">Action</p>
         </div>
         {
           appointmentsDoc.map((item, index) => (
             <div
               key={index}
-              className={`grid grid-cols-7 gap-4 text-center items-center p-4 ${index % 2 === 0 ? "bg-white" : "bg-gray-50"
-                } border-b`}
+              className="grid grid-cols-7 gap-4 text-left items-center p-4 border-b border-slate-100 hover:bg-slate-50 transition-colors"
             >
-              <p>{index + 1}</p>
+              <p className="text-slate-500">{index + 1}</p>
               <div className="flex items-center gap-2">
                 <img
                   src={item.userData.image}
-                  className="w-10 h-10 rounded-full object-cover"
+                  className="w-9 h-9 rounded-full object-cover"
                   alt="User"
                 />
-                <p>{item.userData.name}</p>
+                <p className="text-slate-800 font-medium">{item.userData.name}</p>
               </div>
-              <p>{calculateAge(item.userData.dob)}</p>
-              <p>{slotDataFormat(item.slotDate)}, {item.slotTime}</p>
+              <p className="text-slate-600">{calculateAge(item.userData.dob)??""}</p>
+              <p className="text-slate-600">{slotDataFormat(item.slotDate)}, {item.slotTime}</p>
               <div>
-               <p>{item.payment?"Online":"Cash"}</p>
+               <span className={`text-xs font-semibold px-2 py-1 rounded-full ${item.payment?"bg-indigo-50 text-indigo-600":"bg-slate-100 text-slate-600"}`}>{item.payment?"Online":"Cash"}</span>
               </div>
-              <p>{item.amount}$</p>
+              <p className="text-slate-800 font-medium">${item.amount}</p>
               {item.isCompleted ?(
-                <p className="text-green-500 font-medium">Completed</p>
+                <p className="text-emerald-600 font-medium text-sm text-center">Completed</p>
               ):item.isConcelled ? (
-                <p className="text-red-500 font-medium">Canceled</p>
+                <p className="text-rose-600 font-medium text-sm text-center">Canceled</p>
               ):(
-              <div>
+              <div className="flex items-center justify-center gap-3">
                 <img
                onClick={()=>completedAppointmentDoc(item._id)}
                src={assets.tick_icon}
-               className="w-10 h-10 cursor-pointer m-2"
+               className="w-8 h-8 cursor-pointer hover:scale-110 transition-transform"
                alt="tick Icon"/>
                 <img
                onClick={()=>cancelAppointmentDoc(item._id)}
                
                 src={assets.cancel_icon}
-                className="w-10 h-10 cursor-pointer m-2"
+                className="w-8 h-8 cursor-pointer hover:scale-110 transition-transform"
                 alt="Cancel Icon"/>
               </div>
 

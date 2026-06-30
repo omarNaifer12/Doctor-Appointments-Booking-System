@@ -57,44 +57,46 @@ useEffect(()=>{
 },[token])
 
   return (
-    <div className="container mx-auto px-4 py-6">
-      <p className="text-2xl font-semibold text-gray-800 mb-4">My Appointments</p>
-      <div className="space-y-4">
+    <div className="container mx-auto px-4 py-8 max-w-3xl">
+      <h1 className="text-2xl font-bold text-slate-800 mb-1">My Appointments</h1>
+      <p className="text-sm text-slate-500 mb-6">View, pay, or cancel your upcoming visits</p>
+      <div className="flex flex-col gap-5">
         {appointments.map((appointment, index) => (
           <div
             key={index}
-            className="flex items-center bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 hover:bg-gray-50"
+            className="grid grid-cols-[auto_1fr_auto] gap-4 items-center bg-slate-50 border border-slate-200 p-4 rounded-xl hover:border-indigo-300 hover:shadow-sm transition-all duration-300"
           >
             {/* Doctor Profile */}
             <img
               src={appointment.docData.image}
               alt={appointment.docData.name}
-              className="w-16 h-16 rounded-full object-cover mr-4"
+              className="w-20 h-20 rounded-xl object-cover ring-1 ring-slate-200"
             />
-            <div className="flex-grow">
-              <p className="text-lg font-semibold text-gray-700">{appointment.docData.name}</p>
-              <p className="text-sm text-gray-500">{appointment.docData.speciality}</p>
-              <div className="text-sm text-gray-600 mt-2">
-                <p className="font-medium text-gray-800">Address:</p>
+            <div>
+              <p className="text-lg font-semibold text-slate-800">{appointment.docData.name}</p>
+              <span className="inline-block text-xs font-medium text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full mt-1">{appointment.docData.speciality}</span>
+              <div className="text-sm text-slate-600 mt-3 space-y-0.5">
+                <p className="font-medium text-slate-700">Address</p>
                 <p>{appointment.docData.address.line1}</p>
                 <p>{appointment.docData.address.line2}</p>
                 {/* Date & Time Section */}
-                <p className="font-semibold text-gray-800 mt-2">
-                  Date & Time: {slotDataFormat(appointment.slotDate)}|{appointment.slotTime}
+                <p className="font-semibold text-slate-800 mt-2 flex items-center gap-2">
+                  <span className="text-indigo-500">📅</span>
+                  {slotDataFormat(appointment.slotDate)} &middot; {appointment.slotTime}
                 </p>
               </div>
             </div>
 
             {/* Action Buttons */}
-            <div className="ml-4 flex flex-col items-center justify-between">
-              {(!appointment.isConcelled&&!appointment.isCompleted)&&<button onClick={()=>handlePaymentClick(appointment._id)} className="bg-white text-blue-500 py-2 px-4 rounded-lg border border-blue-500 hover:bg-blue-500 hover:text-white transition-all duration-200">
+            <div className="flex flex-col items-stretch gap-2 min-w-[150px]">
+              {(!appointment.isConcelled&&!appointment.isCompleted)&&<button onClick={()=>handlePaymentClick(appointment._id)} className="bg-indigo-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-indigo-700 transition-colors duration-200">
                 Pay Online
               </button>} 
-             {(!appointment.isConcelled&&!appointment.isCompleted)&&<button onClick={()=>cancellAppointment(appointment._id)} className="bg-white text-red-500 py-2 px-4 rounded-lg border border-red-500 hover:bg-red-500 hover:text-white transition-all duration-200 mt-2">
-                Cancel Appointment
+             {(!appointment.isConcelled&&!appointment.isCompleted)&&<button onClick={()=>cancellAppointment(appointment._id)} className="bg-white text-slate-600 py-2 px-4 rounded-lg border border-slate-300 font-medium hover:bg-rose-50 hover:text-rose-600 hover:border-rose-300 transition-colors duration-200">
+                Cancel
               </button>} 
-              {appointment.isConcelled&&<button className="bg-white text-red-500 py-2 px-4 rounded-lg border border-red-500 hover:bg-red-500 hover:text-white transition-all duration-200 mt-2">appointment cancelled</button>}
-              {appointment.isCompleted&&<button className="bg-white text-red-500 py-2 px-4 rounded-lg border border-red-500 hover:bg-red-500 hover:text-white transition-all duration-200 mt-2">appointment completed</button>}
+              {appointment.isConcelled&&<span className="text-center text-rose-600 bg-rose-50 py-2 px-4 rounded-lg text-sm font-medium">Cancelled</span>}
+              {appointment.isCompleted&&<span className="text-center text-emerald-600 bg-emerald-50 py-2 px-4 rounded-lg text-sm font-medium">Completed</span>}
             </div>
           </div>
         ))}

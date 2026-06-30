@@ -83,19 +83,19 @@ if(dtoken){
   }
 
   return doctorInfo && (
-    <div className="p-6 max-w-md mx-auto bg-gradient-to-r from-white to-blue-100 shadow-lg rounded-lg border border-gray-200">
+    <div className="p-8 max-w-md mx-auto bg-white shadow-sm rounded-2xl border border-slate-200">
       {isEdit ? (
-        <label htmlFor="image" className="relative cursor-pointer group">
-          <div className="relative">
+        <label htmlFor="image" className="relative cursor-pointer group block">
+          <div className="relative w-32 h-32 mx-auto mb-4">
             {/* Profile Image */}
             <img
               src={image ? URL.createObjectURL(image) : doctorInfo.image}
               alt="Profile"
-              className="w-32 h-32 rounded-full mx-auto mb-4 shadow-lg border-4 border-blue-500 transition-transform transform group-hover:scale-105"
+              className="w-32 h-32 rounded-2xl object-cover shadow-sm ring-2 ring-indigo-500 transition-transform transform group-hover:scale-105"
             />
             {/* Overlay Icon for Editing */}
-            <div className="absolute inset-0 bg-blue-500 bg-opacity-40 flex items-center justify-center rounded-full transition-opacity opacity-0 group-hover:opacity-100">
-              <img src={assets.upload_icon} alt="Upload" className="w-10 h-10 opacity-80" />
+            <div className="absolute inset-0 bg-indigo-600 bg-opacity-40 flex items-center justify-center rounded-2xl transition-opacity opacity-0 group-hover:opacity-100">
+              <img src={assets.upload_icon} alt="Upload" className="w-10 h-10 opacity-90" />
             </div>
           </div>
           <input
@@ -109,7 +109,7 @@ if(dtoken){
         <img
           src={image ? URL.createObjectURL(image) : doctorInfo.image}
           alt="Profile"
-          className="w-32 h-32 rounded-full mx-auto mb-4 shadow-md border-4 border-blue-500"
+          className="w-32 h-32 rounded-2xl object-cover mx-auto mb-4 shadow-sm ring-2 ring-indigo-500"
         />
       )}
   
@@ -118,99 +118,99 @@ if(dtoken){
           <input
             value={doctorInfo.name}
             onChange={(e) => handleInputChange("name", e.target.value)}
-            className="text-center w-full p-2 mb-2 border rounded-md border-gray-300"
+            className="text-center w-full p-2 mb-2 border rounded-lg border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-400"
             placeholder="Full Name"
           />
         ) : (
-          <h1 className="text-2xl font-semibold text-gray-700">{doctorInfo.name}</h1>
+          <h1 className="text-2xl font-bold text-slate-800">{doctorInfo.name}</h1>
         )}
       </div>
   
-      <hr className="my-4" />
+      <div className="my-5 border-t border-slate-100" />
   
       <div className="mt-4">
-        <p className="text-xl font-semibold text-gray-800 mb-2">Details</p>
+        <p className="text-sm font-semibold text-indigo-600 uppercase tracking-wide mb-3">Details</p>
   
         {/* Email */}
-        <div className="mt-2">
-          <p className="text-gray-600 font-medium">Email</p>
+        <div className="mt-3">
+          <p className="text-slate-500 text-sm font-medium">Email</p>
           {isEdit ? (
             <input
               value={doctorInfo.email}
               onChange={(e) => handleInputChange("email", e.target.value)}
-              className="w-full p-2 border rounded-md border-gray-300"
+              className="w-full p-2 border rounded-lg border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-400"
               placeholder="Email Address"
             />
           ) : (
-            <p className="text-gray-800">{doctorInfo.email}</p>
+            <p className="text-slate-800">{doctorInfo.email}</p>
           )}
         </div>
   
         {/* Speciality */}
-        <div className="mt-2">
-          <p className="text-gray-600 font-medium">Speciality</p>
+        <div className="mt-3">
+          <p className="text-slate-500 text-sm font-medium">Speciality</p>
           {isEdit ? (
             <input
               value={doctorInfo.speciality}
               onChange={(e) => handleInputChange("speciality", e.target.value)}
-              className="w-full p-2 border rounded-md border-gray-300"
+              className="w-full p-2 border rounded-lg border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-400"
               placeholder="Speciality"
             />
           ) : (
-            <p className="text-gray-800">{doctorInfo.speciality}</p>
+            <p className="text-slate-800">{doctorInfo.speciality}</p>
           )}
         </div>
   
         {/* Degree */}
-        <div className="mt-2">
-          <p className="text-gray-600 font-medium">Degree</p>
+        <div className="mt-3">
+          <p className="text-slate-500 text-sm font-medium">Degree</p>
           {isEdit ? (
             <input
               value={doctorInfo.degree}
               onChange={(e) => handleInputChange("degree", e.target.value)}
-              className="w-full p-2 border rounded-md border-gray-300"
+              className="w-full p-2 border rounded-lg border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-400"
               placeholder="Degree"
             />
           ) : (
-            <p className="text-gray-800">{doctorInfo.degree}</p>
+            <p className="text-slate-800">{doctorInfo.degree}</p>
           )}
         </div>
   
         {/* Experience */}
-        <div className="mt-2">
-          <p className="text-gray-600 font-medium">Experience</p>
+        <div className="mt-3">
+          <p className="text-slate-500 text-sm font-medium">Experience</p>
           {isEdit ? (
             <input
               value={doctorInfo.experience}
               onChange={(e) => handleInputChange("experience", e.target.value)}
-              className="w-full p-2 border rounded-md border-gray-300"
+              className="w-full p-2 border rounded-lg border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-400"
               placeholder="Experience"
             />
           ) : (
-            <p className="text-gray-800">{doctorInfo.experience}</p>
+            <p className="text-slate-800">{doctorInfo.experience}</p>
           )}
         </div>
   
         {/* Address */}
-        <div className="mt-2">
-          <p className="text-gray-600 font-medium">Address</p>
+        <div className="mt-3">
+          <p className="text-slate-500 text-sm font-medium">Address</p>
           {isEdit ? (
             <div>
               <input
                 value={doctorInfo.address.line1}
                 onChange={(e) => handleAddressChange("line1", e.target.value)}
-                className="w-full p-2 mb-2 border rounded-md border-gray-300"
+                className="w-full p-2 mb-2 border rounded-lg border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-400"
                 placeholder="Address Line 1"
               />
               <input
                 value={doctorInfo.address.line2}
                 onChange={(e) => handleAddressChange("line2", e.target.value)}
-                className="w-full p-2 border rounded-md border-gray-300"
+                className="w-full p-2 border rounded-lg border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-400"
                 placeholder="Address Line 2"
               />
             </div>
           ) : (
-            <p className="text-gray-800">
+            <p className="text-slate-800">
               {doctorInfo?.address?.line1}
               <br />
               {doctorInfo?.address?.line2}
@@ -218,32 +218,32 @@ if(dtoken){
           )}
         </div>
          {/* Fees */}
-      <div className="mt-2">
-        <p className="text-gray-600 font-medium">Fees</p>
+      <div className="mt-3">
+        <p className="text-slate-500 text-sm font-medium">Fees</p>
         {isEdit ? (
           <input
             value={doctorInfo.fees}
             onChange={(e) => handleInputChange("fees", e.target.value)}
-            className="w-full p-2 border rounded-md border-gray-300"
+            className="w-full p-2 border rounded-lg border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-400"
             placeholder="Consultation Fees"
           />
         ) : (
-          <p className="text-gray-800">{doctorInfo.fees}</p>
+          <p className="text-slate-800">{doctorInfo.fees}</p>
         )}
       </div>
 
       {/* About */}
-      <div className="mt-2">
-        <p className="text-gray-600 font-medium">About</p>
+      <div className="mt-3">
+        <p className="text-slate-500 text-sm font-medium">About</p>
         {isEdit ? (
           <textarea
             value={doctorInfo.about}
             onChange={(e) => handleInputChange("about", e.target.value)}
-            className="w-full p-2 border rounded-md border-gray-300"
+            className="w-full p-2 border rounded-lg border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-400"
             placeholder="About the Doctor"
           />
         ) : (
-          <p className="text-gray-800">{doctorInfo.about}</p>
+          <p className="text-slate-800">{doctorInfo.about}</p>
         )}
       </div>
       </div>
@@ -251,10 +251,10 @@ if(dtoken){
       {/* Toggle Edit Mode */}
       <button
         onClick={(e) => submit(e)}
-        className={`mt-6 w-full py-2 rounded-md font-semibold text-white transition ${
+        className={`mt-6 w-full py-2.5 rounded-full font-semibold text-white transition-colors duration-200 ${
           isEdit
-            ? "bg-green-500 hover:bg-green-600"
-            : "bg-blue-500 hover:bg-blue-600"
+            ? "bg-emerald-500 hover:bg-emerald-600"
+            : "bg-indigo-600 hover:bg-indigo-700"
         }`}
       >
         {isEdit ? "Save Changes" : "Edit Profile"}

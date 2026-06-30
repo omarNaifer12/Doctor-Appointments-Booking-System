@@ -73,22 +73,23 @@ const AddDoctor = () => {
 
     }
     return (
-        <form onSubmit={onSubmitHandler} className="space-y-6 p-6 bg-gray-100 rounded-lg shadow-md max-w-3xl mx-auto">
-        <div className="text-center">
-            <p className="text-2xl font-semibold">Add Doctor</p>
+        <form onSubmit={onSubmitHandler} className="space-y-8 p-8 bg-white rounded-2xl border border-slate-200 max-w-3xl mx-auto">
+        <div>
+            <p className="text-2xl font-bold text-slate-800">Add Doctor</p>
+            <p className="text-sm text-slate-500 mt-1">Create a new doctor profile for the platform</p>
         </div>
     
-        <div className="flex flex-wrap gap-6">
+        <div className="flex flex-wrap gap-8">
             {/* Left Side */}
-            <div className="w-full sm:w-1/2 space-y-4">
+            <div className="w-full sm:w-[calc(50%-1rem)] space-y-4">
                 <div>
-                    <label htmlFor="doc-img" className="block text-lg font-medium">Upload Image</label>
-                    <div className="flex justify-center items-center space-x-4">
-                        <label htmlFor="doc-img">
+                    <label htmlFor="doc-img" className="block text-sm font-semibold text-slate-700 mb-2">Profile Photo</label>
+                    <div className="flex items-center gap-4">
+                        <label htmlFor="doc-img" className="cursor-pointer group relative">
                             <img
                                 src={docImg ? URL.createObjectURL(docImg) : assets.upload_area}
                                 alt="Doctor"
-                                className="w-32 h-32 object-cover rounded-full"
+                                className="w-24 h-24 object-cover rounded-2xl ring-2 ring-indigo-200 group-hover:ring-indigo-400 transition"
                             />
                         </label>
                         <input
@@ -97,12 +98,12 @@ const AddDoctor = () => {
                             id="doc-img"
                             hidden
                         />
+                        <p className="text-sm text-slate-500">Click the image<br/>to upload a photo</p>
                     </div>
-                    <p className="text-center text-sm text-gray-500">Click to upload image</p>
                 </div>
     
                 <div>
-                    <label htmlFor="name" className="block text-lg font-medium">Doctor Name</label>
+                    <label htmlFor="name" className="block text-sm font-semibold text-slate-700 mb-1">Doctor Name</label>
                     <input
                         value={name}
                         onChange={(e) => setName(e.target.value)}
@@ -110,12 +111,12 @@ const AddDoctor = () => {
                         id="name"
                         placeholder="Name"
                         required
-                        className="w-full p-3 border border-gray-300 rounded-md"
+                        className="w-full p-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
                     />
                 </div>
     
                 <div>
-                    <label htmlFor="email" className="block text-lg font-medium">Doctor Email</label>
+                    <label htmlFor="email" className="block text-sm font-semibold text-slate-700 mb-1">Doctor Email</label>
                     <input
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -123,12 +124,12 @@ const AddDoctor = () => {
                         id="email"
                         placeholder="Email"
                         required
-                        className="w-full p-3 border border-gray-300 rounded-md"
+                        className="w-full p-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
                     />
                 </div>
     
                 <div>
-                    <label htmlFor="password" className="block text-lg font-medium">Doctor Password</label>
+                    <label htmlFor="password" className="block text-sm font-semibold text-slate-700 mb-1">Doctor Password</label>
                     <input
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
@@ -136,17 +137,17 @@ const AddDoctor = () => {
                         id="password"
                         placeholder="Password"
                         required
-                        className="w-full p-3 border border-gray-300 rounded-md"
+                        className="w-full p-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
                     />
                 </div>
     
                 <div>
-                    <label htmlFor="experience" className="block text-lg font-medium">Experience</label>
+                    <label htmlFor="experience" className="block text-sm font-semibold text-slate-700 mb-1">Experience</label>
                     <select
                         value={experience}
                         onChange={(e) => setExperience(e.target.value)}
                         id="experience"
-                        className="w-full p-3 border border-gray-300 rounded-md"
+                        className="w-full p-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
                     >
                         <option value="1 year">1 year</option>
                         <option value="2 years">2 years</option>
@@ -162,7 +163,7 @@ const AddDoctor = () => {
                 </div>
     
                 <div>
-                    <label htmlFor="fees" className="block text-lg font-medium">Doctor Fees</label>
+                    <label htmlFor="fees" className="block text-sm font-semibold text-slate-700 mb-1">Doctor Fees</label>
                     <input
                         value={fees}
                         onChange={(e) => setFees(e.target.value)}
@@ -170,20 +171,20 @@ const AddDoctor = () => {
                         id="fees"
                         placeholder="Fees"
                         required
-                        className="w-full p-3 border border-gray-300 rounded-md"
+                        className="w-full p-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
                     />
                 </div>
             </div>
     
             {/* Right Side */}
-            <div className="w-full sm:w-1/2 space-y-4">
+            <div className="w-full sm:w-[calc(50%-1rem)] space-y-4">
                 <div>
-                    <label htmlFor="speciality" className="block text-lg font-medium">Speciality</label>
+                    <label htmlFor="speciality" className="block text-sm font-semibold text-slate-700 mb-1">Speciality</label>
                     <select
                         value={speciality}
                         onChange={(e) => setSpeciality(e.target.value)}
                         id="speciality"
-                        className="w-full p-3 border border-gray-300 rounded-md"
+                        className="w-full p-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
                     >
                         <option value="General physician">General physician</option>
                         <option value="Gynecologist">Gynecologist</option>
@@ -195,7 +196,7 @@ const AddDoctor = () => {
                 </div>
     
                 <div>
-                    <label htmlFor="degree" className="block text-lg font-medium">Education</label>
+                    <label htmlFor="degree" className="block text-sm font-semibold text-slate-700 mb-1">Education</label>
                     <input
                         value={degree}
                         onChange={(e) => setDegree(e.target.value)}
@@ -203,12 +204,12 @@ const AddDoctor = () => {
                         id="degree"
                         placeholder="Education"
                         required
-                        className="w-full p-3 border border-gray-300 rounded-md"
+                        className="w-full p-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
                     />
                 </div>
     
                 <div>
-                    <label htmlFor="address1" className="block text-lg font-medium">Address</label>
+                    <label htmlFor="address1" className="block text-sm font-semibold text-slate-700 mb-1">Address</label>
                     <input
                         value={address1}
                         onChange={(e) => setAddress1(e.target.value)}
@@ -216,7 +217,7 @@ const AddDoctor = () => {
                         id="address1"
                         placeholder="Address 1"
                         required
-                        className="w-full p-3 border border-gray-300 rounded-md"
+                        className="w-full p-3 border border-slate-300 rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
                     />
                     <input
                         value={address2}
@@ -225,14 +226,14 @@ const AddDoctor = () => {
                         id="address2"
                         placeholder="Address 2"
                         required
-                        className="w-full p-3 border border-gray-300 rounded-md"
+                        className="w-full p-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
                     />
                 </div>
             </div>
         </div>
     
         <div>
-            <label htmlFor="about" className="block text-lg font-medium">About Doctor</label>
+            <label htmlFor="about" className="block text-sm font-semibold text-slate-700 mb-1">About Doctor</label>
             <textarea
                 value={about}
                 onChange={(e) => setAbout(e.target.value)}
@@ -240,16 +241,16 @@ const AddDoctor = () => {
                 placeholder="Write About"
                 rows={5}
                 required
-                className="w-full p-3 border border-gray-300 rounded-md"
+                className="w-full p-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
             />
         </div>
     
-        <div className="text-center">
+        <div className="flex justify-end">
             <button
                 type="submit"
-                className="w-full bg-blue-500 text-white py-3 px-6 rounded-md hover:bg-blue-600 transition duration-200"
+                className="px-8 py-3 bg-indigo-600 text-white font-semibold rounded-full hover:bg-indigo-700 transition duration-200"
             >
-                Submit
+                Add Doctor
             </button>
         </div>
     </form>
